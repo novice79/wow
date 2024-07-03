@@ -1,6 +1,7 @@
 FROM ubuntu:24.04 as wow_build
 
-COPY tsinghua.sources /etc/apt/sources.list.d/ubuntu.sources
+# This for local test in mainland China
+# COPY tsinghua.sources /etc/apt/sources.list.d/ubuntu.sources
 
 RUN apt-get update && apt-get install -y \
 git cmake make gcc g++ clang libmysqlclient-dev libssl-dev libbz2-dev \
