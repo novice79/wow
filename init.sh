@@ -5,7 +5,7 @@ log () {
 }
 
 chown -R mysql:mysql /var/lib/mysql
-if [ ! -e "/var/lib/mysql/mysql" ]; then
+if [ ! -d "/var/lib/mysql/acore_world" ]; then
     log "Copy wow server database ..."
     rm -rf /var/lib/mysql/*
     cp -r /azeroth-server/mysql/* /var/lib/mysql/

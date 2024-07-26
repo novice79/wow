@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 apt-get update && apt-get install -y \
 git cmake make gcc g++ clang libmysqlclient-dev libssl-dev libbz2-dev \
