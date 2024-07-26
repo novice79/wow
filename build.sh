@@ -4,7 +4,7 @@ apt-get update && apt-get install -y \
 git cmake make gcc g++ clang libmysqlclient-dev libssl-dev libbz2-dev \
 libreadline-dev libncurses-dev mysql-server libboost-all-dev ninja-build \
 xz-utils curl
-cd /wow
+mkdir -p /wow && cd /wow
 git clone https://github.com/azerothcore/azerothcore-wotlk.git \
 --branch master --single-branch --depth 1 azerothcore
 dir="_build"
@@ -19,8 +19,8 @@ mv /azeroth-server/etc/authserver.conf{.dist,} \
 
 mkdir -p /azeroth-server/data \
 && curl -s -L https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/ac-wow3.3.5a_en.tar.xz \
-| tar Jxvf - -C /azeroth-server/data
-cd /wow_deps
+| tar Jxf - -C /azeroth-server/data
+mkdir -p /wow_deps && cd /wow_deps
 find /azeroth-server/bin -type f -perm /a+x -exec ldd {} \; \
 | grep "=> /" \
 | awk '{print $3}' \
@@ -29,6 +29,7 @@ find /azeroth-server/bin -type f -perm /a+x -exec ldd {} \; \
 | xargs -I '{}' sh -c 'cp --parents -L {} .' \
 && mkdir usr && mv lib usr/
 
+# /etc/init.d/mysql start
 /usr/sbin/mysqld &
 while : ; do
     # wait for mysql started
@@ -45,5 +46,10 @@ echo "wait for worldserver started ..."
 while ! tail -n 15 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
     sleep 2
     # show progress
-    tail -n 1 ./Server.log
+    curLine="$(tail -n 1 ./Server.log)"
+    if [[ "$curLine" != "$lastLine" ]];then
+        echo "$curLine"
+        lastLine="$curLine"
+    fi
 done
+echo "Wow DB initiallizing finished."
