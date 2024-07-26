@@ -4,13 +4,13 @@ log () {
     printf "[%(%Y-%m-%d %T)T] %s\n" -1 "$*"
 }
 
-chown -R mysql:mysql /var/lib/mysql
 if [ ! -d "/var/lib/mysql/acore_world" ]; then
     log "Copy wow server database ..."
     rm -rf /var/lib/mysql/*
     cp -r /azeroth-server/mysql/* /var/lib/mysql/
 fi
-log "starting mysql server ..."
+chown -R mysql:mysql /var/lib/mysql
+log "Starting mysql server, please wait ..."
 /usr/sbin/mysqld &
 while : ; do
     # wait for mysql started
