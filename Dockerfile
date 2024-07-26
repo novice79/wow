@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 as wow_build
+FROM ubuntu:24.04 AS wow_build
 
 COPY build.sh /
 RUN /build.sh
@@ -6,7 +6,7 @@ RUN /build.sh
 FROM ubuntu:24.04
 LABEL maintainer="novice <novice79@126.com>"
 # this needed to install tzdate noninteractivelly
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # COPY sources.list /etc/apt/sources.list
 RUN apt-get update && apt-get install -y \
