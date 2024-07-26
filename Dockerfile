@@ -17,6 +17,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY --from=wow_build /wow_deps /
 COPY --from=wow_build /azeroth-server /azeroth-server
+# COPY --from=wow_build /wow/azerothcore/data /wow/azerothcore/data
+# put placeholder dir exist
+RUN mkdir -p /wow/azerothcore/data/sql
 COPY --from=wow_build /var/lib/mysql /azeroth-server/mysql
 
 RUN mkdir -p /var/run/mysqld ; chown mysql:mysql /var/run/mysqld
