@@ -49,8 +49,8 @@ log "wow services started !!!"
 log "set user=${user:="wow"}"
 log "set pass=${pass:="wow"}"
 # todo: if user exist, no need to set
-screen -S ws -p 0 -X stuff "account create $user $pass 0\\r"
-screen -S ws -p 0 -X stuff "account set gmlevel $user 3 -1 0\\r"
+screen -S ws -p 0 -X stuff "account create $user $pass \\r"
+screen -S ws -p 0 -X stuff "account set gmlevel $user 3 -1 \\r"
 
 count=0
 while [ 1 ]; do
