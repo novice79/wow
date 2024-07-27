@@ -1,33 +1,22 @@
-FROM ubuntu:24.04 AS wow_build
+FROM ubuntu:24.04 AS wow_data
+RUN apt-get update && apt-get install -y xz-utils curl
+RUN mkdir -p /azeroth-server/data \
+&& curl -s -L https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/ac-wow3.3.5a_zh.tar.xz \
+| tar Jxf - -C /azeroth-server/data
 
-COPY build.sh /
-RUN /build.sh
 
-FROM ubuntu:24.04
+FROM novice/wow:ac335a_en
 LABEL maintainer="novice <novice79@126.com>"
-# this needed to install tzdate noninteractivelly
+
 ENV DEBIAN_FRONTEND=noninteractive
 
-# COPY sources.list /etc/apt/sources.list
-RUN apt-get update && apt-get install -y \
-	screen mysql-server tzdata
+RUN rm -rf /azeroth-server/data
+COPY --from=wow_data /azeroth-server/data /azeroth-server/data
 
-ENV TZ=Asia/Chongqing
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone 
-
-COPY --from=wow_build /wow_deps /
-COPY --from=wow_build /azeroth-server /azeroth-server
-# todo: no need to copy whole folder?
-COPY --from=wow_build /wow/azerothcore/data/sql /wow/azerothcore/data/sql
-COPY --from=wow_build /var/lib/mysql /azeroth-server/mysql
-
-RUN mkdir -p /var/run/mysqld ; chown mysql:mysql /var/run/mysqld
 WORKDIR /azeroth-server/bin
 
 VOLUME ["/var/lib/mysql"]
 
 EXPOSE 3724 8085
-
-COPY init.sh /
 
 ENTRYPOINT ["/init.sh"]
