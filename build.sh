@@ -17,9 +17,22 @@ cd azerothcore \
 mv /azeroth-server/etc/authserver.conf{.dist,} \
 && mv /azeroth-server/etc/worldserver.conf{.dist,} \
 && sed -i -E '/^DataDir/s#=.+$#= "/azeroth-server/data"#' /azeroth-server/etc/worldserver.conf
+echo "dataTag=$dataTag"
+case $dataTag in
+  ac335a_en)
+    dataFile="ac-wow3.3.5a_en.tar.xz"
+    ;;
+  ac335a_zh)
+    dataFile="ac-wow3.3.5a_zh.tar.xz"
+    ;;
+  *)
+    echo "Branch unknown, that is weird, use English data as default"
+    dataFile="ac-wow3.3.5a_en.tar.xz"
+    ;;
+esac
 
 mkdir -p /azeroth-server/data \
-&& curl -s -L https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/ac-wow3.3.5a_en.tar.xz \
+&& curl -s -L "https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/$dataFile" \
 | tar Jxf - -C /azeroth-server/data
 mkdir -p /wow_deps && cd /wow_deps
 find /azeroth-server/bin -type f -perm /a+x -exec ldd {} \; \

@@ -50,17 +50,17 @@ log "set user=${user:="wow"}"
 log "set pass=${pass:="wow"}"
 # todo: if user exist, no need to set
 screen -S ws -p 0 -X stuff "account create $user $pass \\r"
-# screen -S ws -p 0 -X stuff "account set gmlevel $user 3 -1 \\r"
 
 count=0
 while [ 1 ]; do
     mysql -uroot -D acore_auth -e "select id,username from account ;" | grep -i "$user"
     if [ $? -eq 0 ]; then
+        screen -S ws -p 0 -X stuff "account set gmlevel $user 3 -1 \\r"
         #set this account to highest gm level 
         # mysql -uroot -D acore_auth -e "select * from account_access;"
-        mysql -uroot -D acore_auth -e "UPDATE account_access AS access
-        INNER JOIN account AS account ON access.id = account.id
-        SET gmlevel = 4 WHERE username = '$user';"
+        # mysql -uroot -D acore_auth -e "UPDATE account_access AS access
+        # INNER JOIN account AS account ON access.id = account.id
+        # SET gmlevel = 4 WHERE username = '$user';"
         log "Account: [$user] has flushed, can be used to login in game now!"
         break
     else

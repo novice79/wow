@@ -1,4 +1,6 @@
 FROM ubuntu:24.04 AS wow_build
+ARG branchTag="ac335a_en"
+ENV dataTag=$branchTag
 
 COPY build.sh /
 RUN /build.sh
