@@ -30,9 +30,11 @@ case $dataTag in
     dataFile="ac-wow3.3.5a_en.tar.xz"
     ;;
 esac
-
+echo "dataFile=$dataFile"
+dataUrl="https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/$dataFile"
+echo "dataUrl=$dataUrl"
 mkdir -p /azeroth-server/data \
-&& curl -s -L "https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/$dataFile" \
+&& curl -s -L "$dataUrl" \
 | tar Jxf - -C /azeroth-server/data
 mkdir -p /wow_deps && cd /wow_deps
 find /azeroth-server/bin -type f -perm /a+x -exec ldd {} \; \
