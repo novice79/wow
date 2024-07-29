@@ -39,6 +39,9 @@ screen -AmdS as /bin/bash -c 'while :; do ./authserver; sleep 5; done'
 log "start authserver"
 screen -AmdS ws /bin/bash -c 'while :; do ./worldserver; sleep 5; done'
 log "wait for worldserver initializing ..."
+until [ -f ./Server.log ]; do
+     sleep 1
+done
 while ! tail -n 15 ./Server.log | grep -E -q "TrinityCore rev\..+ready\.{3}"; do
     sleep 2
     # show progress
