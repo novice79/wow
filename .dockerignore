@@ -1,3 +1,5 @@
 .github/
 azerothcore-wotlk/
 TrinityCore/
+_build/
+temp/
