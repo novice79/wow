@@ -68,4 +68,5 @@ while ! tail -n 15 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
         lastLine="$curLine"
     fi
 done
+truncate -s 0 ./Server.log
 echo "Wow DB initiallizing finished."
