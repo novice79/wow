@@ -30,7 +30,7 @@ case $dataTag in
     ;;
 esac
 echo "dataFile=$dataFile"
-dataUrl="https://github.com/novice79/wow/releases/download/v1.0-ac-wow3.3.5a-data/$dataFile"
+dataUrl="https://github.com/novice79/wow/releases/download/v1.0-sf-wow5.4.8-data/$dataFile"
 echo "dataUrl=$dataUrl"
 mkdir -p /usr/local/skyfire-server/data \
 && curl -s -L "$dataUrl" \
