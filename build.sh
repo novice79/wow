@@ -6,8 +6,6 @@ g++ cmake git libssl-dev libreadline-dev libbz2-dev \
 mysql-server libmysqlclient-dev libmysql++-dev libace-dev \
 ninja-build xz-utils curl unzip
 mkdir -p /wow && cd /wow
-# for test
-ALL_PROXY=socks5h://192.168.1.205:1090 \
 git clone https://codeberg.org/ProjectSkyfire/SkyFire_548.git \
 -b main --single-branch --depth 1 
 # -DCMAKE_INSTALL_PREFIX= not effect
