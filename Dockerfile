@@ -1,5 +1,5 @@
 FROM ubuntu:24.04 AS wow_build
-ARG branchTag="ac335a_en"
+ARG branchTag
 ENV dataTag=$branchTag
 
 COPY build.sh /
@@ -18,13 +18,13 @@ ENV TZ=Asia/Chongqing
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone 
 
 COPY --from=wow_build /wow_deps /
-COPY --from=wow_build /azeroth-server /azeroth-server
+COPY --from=wow_build /usr/local/skyfire-server /usr/local/skyfire-server
 # todo: no need to copy whole folder?
-COPY --from=wow_build /wow/azerothcore/data/sql /wow/azerothcore/data/sql
-COPY --from=wow_build /var/lib/mysql /azeroth-server/mysql
+COPY --from=wow_build /wow/SkyFire_548/sql/updates /wow/SkyFire_548/sql/updates
+COPY --from=wow_build /var/lib/mysql /usr/local/skyfire-server/mysql
 
 RUN mkdir -p /var/run/mysqld ; chown mysql:mysql /var/run/mysqld
-WORKDIR /azeroth-server/bin
+WORKDIR /usr/local/skyfire-server/bin
 
 VOLUME ["/var/lib/mysql"]
 

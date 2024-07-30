@@ -7,7 +7,7 @@ log () {
 if [ ! -d "/var/lib/mysql/acore_world" ]; then
     log "Copy wow server database ..."
     rm -rf /var/lib/mysql/*
-    cp -r /azeroth-server/mysql/* /var/lib/mysql/
+    cp -r /usr/local/skyfire-server/mysql/* /var/lib/mysql/
 fi
 chown -R mysql:mysql /var/lib/mysql
 log "Starting mysql server, please wait ..."
@@ -20,10 +20,10 @@ while : ; do
 done
 log "mysql service is started"
 if [ -n "$realmid" ]; then
-    sed -i -E '/^RealmID/s/=.+$/= '"$realmid"'/' /azeroth-server/etc/worldserver.conf
+    sed -i -E '/^RealmID/s/=.+$/= '"$realmid"'/' /usr/local/skyfire-server/etc/worldserver.conf
 fi
 if [ -n "$logindb" ]; then
-    sed -i -E '/^LoginDatabaseInfo/s/".+"/"'"$logindb"'"/' /azeroth-server/etc/worldserver.conf
+    sed -i -E '/^LoginDatabaseInfo/s/".+"/"'"$logindb"'"/' /usr/local/skyfire-server/etc/worldserver.conf
 fi
 if [ -n "$name" ]; then
     mysql -u root -D acore_auth -e "update realmlist set name='$name' where id=1;"
@@ -34,12 +34,12 @@ fi
 if [ -n "$port" ]; then
     mysql -u root -D acore_auth -e "update realmlist set port='$port' where id=1;"
 fi
-cd /azeroth-server/bin
+cd /usr/local/skyfire-server/bin
 screen -AmdS as /bin/bash -c 'while :; do ./authserver; sleep 5; done'
 log "start authserver"
 screen -AmdS ws /bin/bash -c 'while :; do ./worldserver; sleep 5; done'
 log "wait for worldserver initializing ..."
-while ! tail -n 15 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
+while ! tail -n 15 ./Server.log | grep -E -q "SkyFire 5.x.x rev\..+ready\.{3}"; do
     sleep 2
     # show progress
     tail -n 1 ./Server.log
