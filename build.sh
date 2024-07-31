@@ -6,10 +6,12 @@ git cmake make gcc g++ clang libmysqlclient-dev libssl-dev libbz2-dev \
 libreadline-dev libncurses-dev mysql-server libboost-all-dev ninja-build \
 xz-utils curl
 mkdir -p /wow && cd /wow
-git clone https://github.com/azerothcore/azerothcore-wotlk.git \
---branch master --single-branch --depth 1 azerothcore
-dir="_build"
-cd azerothcore \
+git clone https://github.com/liyunfan1223/azerothcore-wotlk.git \
+--branch Playerbot --single-branch --depth 1 azerothcore
+cd azerothcore/modules
+git clone https://github.com/liyunfan1223/mod-playerbots.git --branch=master
+cd /wow/azerothcore \
+&& dir="_build" \
 && cmake -G Ninja -H. -B$dir -DCMAKE_INSTALL_PREFIX=/azeroth-server/ \
 -DTOOLS_BUILD=all -DSCRIPTS=static -DMODULES=static \
 -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
@@ -19,10 +21,10 @@ mv /azeroth-server/etc/authserver.conf{.dist,} \
 && sed -i -E '/^DataDir/s#=.+$#= "/azeroth-server/data"#' /azeroth-server/etc/worldserver.conf
 echo "dataTag=$dataTag"
 case $dataTag in
-  ac335a_en)
+  ac335a-bots_en)
     dataFile="ac-wow3.3.5a_en.tar.xz"
     ;;
-  ac335a_zh)
+  ac335a-bots_zh)
     dataFile="ac-wow3.3.5a_zh.tar.xz"
     ;;
   *)
