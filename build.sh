@@ -61,7 +61,7 @@ cd /azeroth-server/bin
 ./authserver &
 ./worldserver &
 echo "wait for worldserver started ..."
-while ! tail -n 15 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
+while ! tail -n 50 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
     sleep 2
     # show progress
     curLine="$(tail -n 1 ./Server.log)"
