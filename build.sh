@@ -56,7 +56,7 @@ while : ; do
     [ $? -eq 0 ] && break
 done
 mysql -u root < /wow/azerothcore/data/sql/create/create_mysql.sql
-
+mysql -u root < /wow/azerothcore/modules/mod-playerbots/sql/playerbots/create/create_mysql.sql
 cd /azeroth-server/bin
 ./authserver &
 ./worldserver &

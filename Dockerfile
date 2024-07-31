@@ -21,6 +21,8 @@ COPY --from=wow_build /wow_deps /
 COPY --from=wow_build /azeroth-server /azeroth-server
 # todo: no need to copy whole folder?
 COPY --from=wow_build /wow/azerothcore/data/sql /wow/azerothcore/data/sql
+COPY --from=wow_build /wow/azerothcore/modules/mod-playerbots/sql \
+/wow/azerothcore/modules/mod-playerbots/sql
 COPY --from=wow_build /var/lib/mysql /azeroth-server/mysql
 
 RUN mkdir -p /var/run/mysqld ; chown mysql:mysql /var/run/mysqld
