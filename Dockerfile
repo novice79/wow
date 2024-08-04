@@ -1,7 +1,7 @@
 FROM ubuntu:24.04 AS wow_build
 ARG branchTag
 ENV dataTag=$branchTag
-
+ENV DEBIAN_FRONTEND=noninteractive
 COPY build.sh /
 RUN /build.sh
 

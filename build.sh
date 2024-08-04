@@ -7,13 +7,13 @@ mysql-server libmysqlclient-dev libmysql++-dev libace-dev \
 ninja-build xz-utils curl unzip
 mkdir -p /wow && cd /wow
 git clone https://codeberg.org/ProjectSkyfire/SkyFire_548.git \
--b main --single-branch --depth 1 
-# -DCMAKE_INSTALL_PREFIX= not effect
-cd SkyFire_548 \
-&& dir="_build" \
+-b main --single-branch 
+# -DCMAKE_INSTALL_PREFIX= not effect && latest commit compile failed
+cd SkyFire_548 && git checkout 3bfbd9685a 
+dir="_build" \
 && cmake -G Ninja -H. -B$dir -DTOOLS=1 \
--DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
 && ninja -C $dir install
+rm -rf "$dir"
 mv /usr/local/skyfire-server/etc/authserver.conf{.dist,} \
 && mv /usr/local/skyfire-server/etc/worldserver.conf{.dist,} \
 && sed -i -E '/^DataDir/s#=.+$#= "/usr/local/skyfire-server/data"#' /usr/local/skyfire-server/etc/worldserver.conf
@@ -110,8 +110,8 @@ cd /usr/local/skyfire-server/bin
 ./authserver &
 ./worldserver &
 echo "wait for worldserver started ..."
-while ! tail -n 15 ./Server.log | grep -E -q "SkyFire 5.x.x rev\..+ready\.{3}"; do
-    sleep 2
+while ! tail -n 25 ./Server.log | grep -E -q "SkyFire 5.x.x rev\..+ready\.{3}"; do
+    sleep 1
     # show progress
     curLine="$(tail -n 1 ./Server.log)"
     if [[ "$curLine" != "$lastLine" ]];then

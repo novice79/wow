@@ -39,8 +39,8 @@ screen -AmdS as /bin/bash -c 'while :; do ./authserver; sleep 5; done'
 log "start authserver"
 screen -AmdS ws /bin/bash -c 'while :; do ./worldserver; sleep 5; done'
 log "wait for worldserver initializing ..."
-while ! tail -n 15 ./Server.log | grep -E -q "SkyFire 5.x.x rev\..+ready\.{3}"; do
-    sleep 2
+while ! tail -n 25 ./Server.log | grep -E -q "SkyFire 5.x.x rev\..+ready\.{3}"; do
+    sleep 1
     # show progress
     tail -n 1 ./Server.log
 done
