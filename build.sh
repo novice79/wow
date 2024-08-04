@@ -12,6 +12,7 @@ git clone https://codeberg.org/ProjectSkyfire/SkyFire_548.git \
 cd SkyFire_548 \
 && dir="_build" \
 && cmake -G Ninja -H. -B$dir -DTOOLS=1 \
+-DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
 && ninja -C $dir install
 mv /usr/local/skyfire-server/etc/authserver.conf{.dist,} \
 && mv /usr/local/skyfire-server/etc/worldserver.conf{.dist,} \
