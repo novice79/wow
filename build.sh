@@ -74,7 +74,7 @@ cd /azeroth-server/bin
 ./worldserver &
 echo "wait for worldserver started ..."
 while ! tail -n 50 ./Server.log | grep -E -q "AzerothCore rev\..+ready\.{3}"; do
-    sleep 2
+    sleep 1
     # show progress
     curLine="$(tail -n 1 ./Server.log)"
     if [[ "$curLine" != "$lastLine" ]];then
