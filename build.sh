@@ -2,7 +2,7 @@
 set -e
 
 apt-get update && apt-get install -y \
-g++ cmake git libssl-dev libreadline-dev libbz2-dev \
+gcc g++ clang cmake git libssl-dev libreadline-dev libbz2-dev \
 mysql-server libmysqlclient-dev libmysql++-dev libace-dev \
 ninja-build xz-utils curl unzip
 mkdir -p /wow && cd /wow
