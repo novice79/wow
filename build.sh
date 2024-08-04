@@ -21,8 +21,8 @@ mv /azeroth-server/etc/authserver.conf{.dist,} \
 && sed -i -E '/^DataDir/s#=.+$#= "/azeroth-server/data"#' /azeroth-server/etc/worldserver.conf \
 && cp -f /azeroth-server/etc/modules/playerbots.conf{.dist,} \
 && sed -i -E '
-/^AiPlayerbot.MinRandomBots/s#=.+$#= 200#;
-/^AiPlayerbot.MaxRandomBots/s#=.+$#= 400#;
+/^AiPlayerbot.MinRandomBots/s#=.+$#= 100#;
+/^AiPlayerbot.MaxRandomBots/s#=.+$#= 200#;
 /^AiPlayerbot.DisableRandomLevels/s#=.+$#= 1#;
 /^AiPlayerbot.RandomBotMinLevel/s#=.+$#= 1#;
 /^AiPlayerbot.RandomBotShowHelmet/s#=.+$#= 0#;
